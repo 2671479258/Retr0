@@ -556,21 +556,49 @@ body {
 .about-visual-area {
     position: relative;
     padding: 30px;
-    align-self: center; /* 垂直居中 */
-    transform: translateX(30px) rotate(8deg); /* 偏右并倾斜 */
+    align-self: center;
+    /* 取消原有的偏移和旋转，如需保留可调整角度，避免图片显示异常 */
+    transform: translateX(0) rotate(0deg); 
+    /* 确保容器适配相册图片 */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .about-img-clip {
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-    filter: brightness(0.9) contrast(1.1); /* 略暗，对比度强 */
-    transition: transform 0.5s ease;
+    /* 相册圆角，模拟实体相册的边角 */
+    border-radius: 12px;
+    /* 相册阴影，增加立体感 */
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3),
+                0 0 0 8px #fff, /* 模拟相册白边 */
+                0 0 0 10px #e0e0e0; /* 模拟相册灰边 */
+    /* 保持图片质感，可根据需要调整 */
+    filter: brightness(1.0) contrast(1.05);
+    transition: all 0.5s ease;
+    /* 防止图片被挤压 */
+    object-fit: cover;
+    /* 相册基础边框 */
+    border: 1px solid #ddd;
 }
 
+
 .about-img-clip:hover {
-    transform: scale(1.03) rotate(0deg);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* 响应式适配，确保移动端显示正常 */
+@media (max-width: 768px) {
+    .about-visual-area {
+        padding: 15px;
+    }
+    .about-img-clip {
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2),
+                    0 0 0 4px #fff,
+                    0 0 0 6px #e0e0e0;
+    }
 }
 
 .stroke-2 { /* 关于我图片背景笔触 */
@@ -1284,4 +1312,5 @@ body {
         flex-wrap: wrap;
     }
 }
+
 
