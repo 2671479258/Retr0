@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网络资源 | 雨宫Retr0 - 认知异界</title>
+    <!-- 本地CSS文件路径修改为/MyWeb/style.css -->
+    <link rel="stylesheet" href="/MyWeb/style.css">
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Noto+Sans+JP:wght@400;700&family=Handjet:wght@400;700&display=swap" rel="stylesheet">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 仅保留卡片链接样式，不添加任何影响布局的样式 */
+        .skill-card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+        .skill-card-link:hover {
+            text-decoration: none;
+        }
+        /* 极简头像样式 - 只在标题前插入，不影响任何布局 */
+        .avatar-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffc000;
+            box-shadow: 0 0 15px rgba(255, 192, 0, 0.5);
+            vertical-align: middle;
+            margin-right: 15px;
+            display: inline-block;
+        }
+        .avatar-badge img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        /* 移动端微调 - 仅调整头像大小，不改变布局结构 */
+        @media (max-width: 768px) {
+            .avatar-badge {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <header class="header">
+        <div class="header-inner container">
+            <div class="mini-logo">
+                <!-- 首页链接修改为/MyWeb/index.html -->
+                <a href="/MyWeb/index.html">M.Retr0 // <span class="tagline">Cognitive Abyss</span></a>
+            </div>
+            <nav class="main-nav">
+                <ul class="menu-list">
+                    <!-- 所有index.html跳转链接都添加/MyWeb/前缀 -->
+                    <li><a href="/MyWeb/index.html#about" data-menu-item="PROFILE">档案</a></li>
+                    <li><a href="/MyWeb/index.html#skills" data-menu-item="ABILITIES">能力</a></li>
+                    <li><a href="/MyWeb/index.html#works" data-menu-item="PORTFOLIO">作品</a></li>
+                    <li><a href="/MyWeb/index.html#contact" data-menu-item="CONNECT">连接</a></li>
+                </ul>
+                <div class="menu-selector"></div>
+            </nav>
+            <button class="nav-toggle" aria-label="切换导航菜单">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="resources-section common-section">
+            <div class="container">
+                <!-- 核心修改：头像作为inline-block元素直接放在标题前（路径已符合要求） -->
+                <h3 class="section-title">
+                    <span class="avatar-badge">
+                        <img src="/MyWeb/Profile.png" alt="雨宫Retr0 头像">
+                    </span>
+                    网络资源<span>// ONLINE RESOURCES</span>
+                </h3>
+                <!-- 搜索框 - 位置完全不变 -->
+                <div class="resources-search">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="resourceSearch" placeholder="搜索资源...">
+                    </div>
+                </div>
+                <!-- 资源列表 -->
+                <div class="resources-grid">
+                    <div id="resourcesList" class="resources-list">
+                        <!-- 资源项将通过JavaScript动态生成 -->
+                    </div>
+                    <!-- 分页控件 -->
+                    <div class="pagination-controls">
+                        <button id="prevPage" class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i> 上一页
+                        </button>
+                        <div id="pageNumbers" class="page-numbers">
+                            <!-- 页码将通过JavaScript动态生成 -->
+                        </div>
+                        <button id="nextPage" class="pagination-btn">
+                            下一页 <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="parallax-section parallax-dark-2">
+            <div class="parallax-text-overlay">
+                <p>“知识的共享，是进步的阶梯。”</p>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 雨宫Retr0. All Rights Reserved. | <a href="/MyWeb/条款.html">条款</a> | <a href="/MyWeb/隐私.html">隐私</a></p>
+        </div>
+    </footer>
+    <!-- 引入JS库（外部CDN资源无需修改） -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+    <script>
+        // 资源数据
+        const resourcesData = [
+            {
+                id: 1,
+                title: "PS软件2025版",
+                link: "https://pan.baidu.com/s/1ii3l4Lb0BZ2maRLOyjosvA?pwd=mmie"
+            },
+            {
+                id: 2,
+                title: "InDesign软件2025版",
+                link: "https://pan.baidu.com/s/1spJpv-9wOae5r6YXHOko5g?pwd=jm98"
+            },
+        ];
+
+        // 分页配置 - 每页12个
+        const itemsPerPage = 12;
+        let currentPage = 1;
+        let filteredData = [...resourcesData];
+
+        // DOM元素
+        const resourcesList = document.getElementById('resourcesList');
+        const pageNumbers = document.getElementById('pageNumbers');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+        const searchInput = document.getElementById('resourceSearch');
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            renderResources();
+            setupEventListeners();
+            initAnimations();
+        });
+
+        // 渲染资源列表
+        function renderResources() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentItems = filteredData.slice(startIndex, endIndex);
+            
+            resourcesList.innerHTML = '';
+            
+            currentItems.forEach(resource => {
+                const resourceItem = document.createElement('div');
+                resourceItem.className = 'resource-item';
+                resourceItem.innerHTML = `
+                    <h4>${resource.title}</h4>
+                    <a href="${resource.link}" target="_blank" class="resource-link">
+                        <i class="fas fa-cloud-download-alt"></i> 百度网盘链接
+                    </a>
+                `;
+                resourcesList.appendChild(resourceItem);
+            });
+            
+            renderPagination();
+        }
+
+        // 渲染分页控件
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            pageNumbers.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderResources();
+                });
+                pageNumbers.appendChild(pageBtn);
+            }
+            
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === totalPages;
+        }
+
+        // 设置事件监听器
+        function setupEventListeners() {
+            prevPageBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderResources();
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderResources();
+                }
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                if (searchTerm === '') {
+                    filteredData = [...resourcesData];
+                } else {
+                    filteredData = resourcesData.filter(resource => 
+                        resource.title.toLowerCase().includes(searchTerm)
+                    );
+                }
+                currentPage = 1;
+                renderResources();
+            });
+
+            // 导航菜单功能
+            const navToggle = document.querySelector('.nav-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            const menuLinks = document.querySelectorAll('.main-nav a');
+            
+            navToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                navToggle.querySelector('i').classList.toggle('fa-bars');
+                navToggle.querySelector('i').classList.toggle('fa-times');
+                gsap.to(mainNav, {
+                    x: mainNav.classList.contains('active') ? '0%' : '100%',
+                    duration: 0.4,
+                    ease: 'power3.out'
+                });
+            });
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            handleNavClick(targetElement);
+                        }
+                    } else {
+                        // 跳转链接添加/MyWeb/前缀
+                        window.location.href = targetId;
+                    }
+                });
+            });
+        }
+
+        function handleNavClick(targetElement) {
+            const mainNav = document.querySelector('.main-nav');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            if (mainNav.classList.contains('active')) {
+                gsap.to(mainNav, {
+                    x: '100%',
+                    duration: 0.4,
+                    ease: 'power3.in',
+                    onComplete: () => {
+                        mainNav.classList.remove('active');
+                        navToggle.querySelector('i').classList.remove('fa-times');
+                        navToggle.querySelector('i').classList.add('fa-bars');
+                    }
+                });
+            }
+            
+            gsap.to(window, {
+                duration: 1.2,
+                scrollTo: {
+                    y: targetElement,
+                    offsetY: window.innerHeight * 0.1
+                },
+                ease: 'power3.inOut'
+            });
+        }
+
+        // 初始化动画
+        function initAnimations() {
+            const header = document.querySelector('.header');
+            ScrollTrigger.create({
+                start: "top -100px",
+                end: 99999,
+                toggleClass: "scrolled"
+            });
+            
+            gsap.from('.section-title', {
+                opacity: 0,
+                y: 50,
+                scale: 0.9,
+                duration: 1.2,
+                ease: 'power3.out'
+            });
+            
+            gsap.from('.resources-search', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.3
+            });
+            
+            resourcesList.addEventListener('DOMNodeInserted', (e) => {
+                if (e.target.classList.contains('resource-item')) {
+                    gsap.from(e.target, {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
