@@ -292,12 +292,13 @@ body {
 
 .profile-hero-block {
     position: relative;
-    width: clamp(250px, 30vw, 450px); /* 响应式大头像 */
+    width: clamp(250px, 30vw, 450px);
     height: clamp(250px, 30vw, 450px);
     flex-shrink: 0;
-    margin-left: -5vw; /* 略微向左偏移，打破中心 */
-    transform: rotate(-5deg); /* 倾斜 */
+    margin-left: -5vw;
+    transform: rotate(-5deg);
     transition: transform 0.5s ease-out;
+    background: transparent; /* 确保没有背景色 */
 }
 
 .profile-hero-block:hover {
@@ -307,12 +308,13 @@ body {
 .profile-hero-pic {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid var(--accent-red); /* P系列红边框 */
+    border-radius: 50%; /* 确保圆形 */
+    object-fit: cover; /* 保持图片比例 */
+    border: 5px solid var(--accent-red);
     box-shadow: 0 0 30px rgba(232, 63, 111, 0.7);
     position: relative;
     z-index: 5;
+    display: block; /* 移除可能的额外空间 */
 }
 
 /* P系列风格报纸碎片与笔触 */
@@ -1282,3 +1284,4 @@ body {
         flex-wrap: wrap;
     }
 }
+
